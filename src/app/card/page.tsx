@@ -1,7 +1,7 @@
 'use client'
 import Home from "../page"
 
-export function CardPage(){
+export default function CardPage(){
     return(
         <Home/>
     )
