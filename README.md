@@ -1,36 +1,94 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next TodoList
 
-## Getting Started
+Aplicación de ejemplo construida con **Next.js 16**, **React 19**, **TypeScript** y **Mongoose** para una lista de tareas con persistencia en MongoDB.
 
-First, run the development server:
+## Qué hace
+
+- Lista tareas desde una API interna en `/api/todolist`
+- Agrega nuevas tareas
+- Actualiza el estado de las tareas a `inProgress` y `done`
+- Edita títulos de tareas
+- Elimina tareas
+- Guarda y consulta datos usando **MongoDB** a través de **Mongoose**
+
+## Stack principal
+
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS 4
+- Mongoose
+- MongoDB
+
+## Instalación
+
+1. Clonar el repositorio
+
+```bash
+git clone <tu-repo> && cd next-todolist
+```
+
+2. Instalar dependencias
+
+```bash
+npm install
+# o
+bun install
+```
+
+3. Configurar la variable de entorno
+
+Crea un archivo `.env` o `.env.local` en la raíz y define:
+
+```env
+DATABASE=<tu_cadena_de_conexion_a_MongoDB>
+```
+
+4. Ejecutar en desarrollo
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
+# o
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abre `http://localhost:3000` en tu navegador.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts disponibles
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `npm run dev` - ejecuta la app en modo desarrollo
+- `npm run build` - construye la app para producción
+- `npm run start` - inicia el servidor de producción
+- `npm run lint` - ejecuta ESLint
 
-## Learn More
+## Estructura importante
 
-To learn more about Next.js, take a look at the following resources:
+- `src/app/page.tsx` - página principal de la app
+- `src/app/api/todolist/route.ts` - API REST para tareas
+- `src/app/api/user/route.ts` - endpoint de ejemplo para usuario
+- `src/lib/database.ts` - conexión con MongoDB
+- `src/database/models/todolist.ts` - modelo de datos de tareas
+- `src/components/Card.tsx` - componente para mostrar cada tarea
+- `src/styles/todoList.css` - estilos de la lista de tareas
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Endpoints
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `GET /api/todolist` - obtiene todas las tareas
+- `POST /api/todolist` - crea una nueva tarea
+- `PUT /api/todolist` - actualiza una tarea existente
+- `DELETE /api/todolist` - elimina una tarea
+- `GET /api/user` - endpoint de prueba
 
-## Deploy on Vercel
+## Notas
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- La aplicación usa `fetch` desde el cliente para llamar a la API del servidor.
+- La conexión a la base de datos se realiza con `mongoose.connect(process.env.DATABASE)` en `src/lib/database.ts`.
+- Si usas `bun`, puedes ejecutar `bun dev` para iniciar el servidor.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Mejoras posibles
+
+- Validar mejor las entradas del usuario
+- Agregar autenticación
+- Mostrar mensajes de error/éxito en la UI
+- Agregar paginación o filtros
+- Guardar estado local en `localStorage`

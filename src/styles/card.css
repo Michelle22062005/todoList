@@ -1,0 +1,66 @@
+
+.task{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+.addTask{
+    display: flex;
+    gap: 5px;
+}
+.container{
+   display: grid;
+   grid-template-columns: repeat(3, 250px);
+   gap: 20px;
+   width: 100%;
+   justify-content: center;
+}
+.card{
+    border: 1px solid rgb(248, 189, 248);
+    margin-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 5px;
+    background: rgb(196, 197, 198);
+    color: #000;
+    text-align: center;
+}
+.title{
+    font-size: 20px;
+    font-weight: bolder;
+    text-transform: uppercase;
+}
+.card-pe button{
+    background: rgb(165, 164, 166);
+    color: #000;
+    border-radius: 5px;
+    padding: 5px;
+    border: none;
+    margin-right: 5px;
+}
+
+.card-ip button{
+    background: rgb(5, 98, 203);
+    color: #000;
+    border-radius: 5px;
+    padding: 5px;
+    border: none;
+}
+.card-d button{
+    background: rgb(34, 220, 47);
+    color: #000;
+    border-radius: 5px;
+    padding: 5px;
+    border: none;
+}
+
+.enterText{
+    width: 300px;
+    padding: 10px 15px;
+    border: 2px solid #dcdcdc;
+    border-radius: 10px;
+    outline: none;
+    font-size: 16px;
+    transition: 0.3s ease;
+}

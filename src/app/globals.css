@@ -1,8 +1,12 @@
 @import "tailwindcss";
+@import "../styles/card.css";
+@import "../styles/todoList.css";
+@import "@heroui/styles"; 
+
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #010d31;
 }
 
 @theme inline {
@@ -14,7 +18,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #050329;
     --foreground: #ededed;
   }
 }
