@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation"
 
 
 interface totoListProps{
-  id:string,
+  _id:string,
   title:string,
   starDate: number,
   endDate?:number
@@ -48,7 +48,7 @@ useEffect(()=>{
   
 
    try{
-    const id= crypto.randomUUID();
+    //const _id= crypto.randomUUID();
     const status = "pending"
     const res = await fetch("/api/todolist", {
       method: "POST",
@@ -56,7 +56,7 @@ useEffect(()=>{
         "Content-Type": "application/json"
     },
       body: JSON.stringify({
-        id: id,
+        //id: _id,
         title: title,
         status: status,
         starDate: Date.now(),
@@ -77,7 +77,7 @@ useEffect(()=>{
  }
 
 
- const startTask = async(id:string)=>{
+ const startTask = async(_id:string)=>{
   // setTodoList(prev => prev.map(task => 
   //   task.id === id 
   //     ? { ...task, status: "inProgress" as const, starDate: Date.now() } 
@@ -88,7 +88,7 @@ useEffect(()=>{
     await fetch("/api/todolist",{
       method:"PUT",
       headers:{ "Content-Type": "application/json"},
-      body: JSON.stringify({id, status: "inProgress", starDate:Date.now()})
+      body: JSON.stringify({_id, status: "inProgress", starDate:Date.now()})
     })
     fetchData()
   }catch(error){
@@ -96,7 +96,7 @@ useEffect(()=>{
   }
  }
 
-const doneTask =async (id:string)=>{
+const doneTask =async (_id:string)=>{
   // setTodoList(prev =>{
   //   const update = prev.map(task => {
   //     if(task.id === id && task.starDate){
@@ -119,19 +119,19 @@ const doneTask =async (id:string)=>{
     await fetch("/api/todolist",{
       method:"PUT",
       headers:{ "Content-Type": "application/json"},
-      body: JSON.stringify({id, status: "done", endDate:Date.now()})
+      body: JSON.stringify({_id, status: "done", endDate:Date.now()})
     })
     fetchData()
   }catch(error){
     console.error(error)
   }
 }
-const editTask=async (id:string, newTitle:string)=>{
+const editTask=async (_id:string, newTitle:string)=>{
   try{
     await fetch("/api/todolist",{
       method:"PUT",
       headers: {"Content-Type": "application/json"},
-      body:JSON.stringify({id, title: newTitle})
+      body:JSON.stringify({_id, title: newTitle})
     })
     fetchData()
   }catch(error){
@@ -139,13 +139,13 @@ const editTask=async (id:string, newTitle:string)=>{
   }
 }
 
-const deleteTask =async(id:string)=>{
+const deleteTask =async(_id:string)=>{
 
  try{
    await fetch("/api/todolist", {
   method: "DELETE",
   headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ id })
+  body: JSON.stringify({ _id })
 })
 fetchData()
 // window.location.reload();
@@ -168,8 +168,8 @@ fetchData()
           
           {todoList.map((task)=>{
           return(
-             <Card1 key={task.id}
-             id={task.id}  
+             <Card1 key={task._id}
+             _id={task._id}  
              title={task.title} 
              starDate={task.starDate} 
              endDate={task.endDate}

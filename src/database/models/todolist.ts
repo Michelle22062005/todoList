@@ -1,17 +1,23 @@
 import { Schema, model, Model } from "mongoose";
+interface ITodoList extends Document {
+  _id: string
+  title: string
+  status: "pending" | "inProgress" | "done"
+  starDate?: Date
+  endDate?: Date
+  duration?: number
+  comments:string[]
+}
 
-const todoListSchema = new Schema({
-    id:{
-        type:String,
-        require:[true, "The id is require"]
-    },
+const todoListSchema = new Schema<ITodoList>({
+  
     title: {
         type:String,
-        require:[true, "The title is require"],
+        required:[true, "The title is required"],
     },
     status:{
         type:String,
-        require:[true, "The title is require"],
+        required:[true, "The title is required"],
     },
     starDate:{
         type:Date
@@ -21,15 +27,20 @@ const todoListSchema = new Schema({
     },
     duration:{
         type:Number
-    }
+    },
+    comments:[
+        {
+            type:String
+        }
+    ]
 });
 
-export let Todolist:Model<any>;
+export let Todolist:Model<ITodoList>;
 try{
-    Todolist=model("todolists")
+    Todolist=model<ITodoList>("todolists")
 
 }catch(error){
-    Todolist=model("todolists", todoListSchema)
+    Todolist=model<ITodoList>("todolists", todoListSchema)
 }
 
 
