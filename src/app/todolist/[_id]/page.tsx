@@ -23,10 +23,14 @@ interface todo {
 const DetailsTodoList = () => {
   const [todo, setTodo] = useState<todo | null>(null);
   const [comment, setComment] = useState("");
+  // const [cantidadComment, setCantidadComment] =useState<number>(0)
   const { _id } = useParams();
   const router=useRouter()
   //const { dato } = useParams();
 
+// const cantidad=()=>{
+//  setCantidadComment(+1)
+// }
   const fetchData = async () => {
     const res = await fetch(`/api/todolist/${_id}`);
     console.log("status", res.status);
@@ -95,7 +99,7 @@ const DetailsTodoList = () => {
            </h3>
             <input type="text" value={comment} onChange={(e) =>setComment(e.target.value)} placeholder="Escriba un comentario" className="border border-2 p-3"/>
 
-            <p>Comentarios:</p>
+            <p>Comentarios:{todo?.comments.length} </p>
             {todo?.comments && todo.comments.length >0
             ? todo.comments.map((c,i) =>(
               <p key={i}>

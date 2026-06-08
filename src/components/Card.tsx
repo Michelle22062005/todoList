@@ -3,6 +3,7 @@ import { DarkMode } from "./DarkMode";
 import { ContextGlobal } from "@/context/Context";
 import { Button, Card, CloseButton } from "@heroui/react";
 import { useRouter } from "next/navigation";
+import { createComments } from "@/service/todoList";
 interface totoListProps{
   title:string,
   starDate?: number | undefined,
@@ -10,12 +11,14 @@ interface totoListProps{
   status: "pending" | "inProgress" | "done"
   _id:string
   duration?: number
+  comments: string[];
   onStart: (_id:string)=>void
   onFinish: (_id:string)=>void
   onDelete: (_id:string)=>void
   onEdit: (_id:string, newTitle:string)=>void
 }
-export const Card1 = ({title, starDate, endDate, status, _id, duration, onStart,onFinish,onDelete, onEdit}:totoListProps)=>{
+export const Card1 = ({title, starDate, endDate, status, _id, comments, duration, onStart,onFinish,onDelete, onEdit}:totoListProps)=>{
+   
   const [elapsed, setElapsed] = useState<string>("00:00:00")
   const [editing, setEditing] = useState(false)  
   const [newTitle, setNewTitle] = useState(title)
@@ -39,8 +42,8 @@ export const Card1 = ({title, starDate, endDate, status, _id, duration, onStart,
     }, 1000)
     return () => clearInterval(interval)
   }, [starDate, status])
-    
- 
+
+
 
 const totalTimeFormated = starDate && endDate
     ? formatTime(new Date(endDate).getTime() - new Date(starDate).getTime())
@@ -56,14 +59,6 @@ const totalTimeFormated = starDate && endDate
       
          <Card className={`w-full items-stretch md:flex-row  ${status == "pending" ? "card-pe" : ""} ${status == "inProgress" ? "card-ip" : ""} ${status == "done" ? "card-d" : ""} ${!isSelected ? "bg-violet-800" : ""}`}>
 
-      {/* <div className="relative h-[140px] w-full shrink-0 overflow-hidden rounded-2xl sm:h-[120px] sm:w-[120px]">
-        <img
-          alt="Cherries"
-          className="pointer-events-none absolute inset-0 h-full w-full scale-125 object-cover select-none"
-          loading="lazy"
-          src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/cherries.jpeg"
-        />
-      </div> */}
       <div className="flex flex-1 flex-col gap-3">
         <Card.Header className="gap-1">
            <DarkMode/>
@@ -86,6 +81,7 @@ const totalTimeFormated = starDate && endDate
           {status == "done" && `Duración: ${totalTimeFormated}`}
         </div>
           <div>{status}</div>
+          <p>Comentarios: {comments.length}</p>
           </Card.Description>
           
         </Card.Header>

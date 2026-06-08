@@ -2,36 +2,40 @@
 import { useState, useEffect} from "react"
 import { Card1 } from "@/components/Card"
 import { getTodoList } from "@/service/todoList"
+
 import { useRouter } from "next/navigation"
 
 
 interface totoListProps{
-  _id:string,
+   _id:string,
   title:string,
   starDate: number,
   endDate?:number
+  comments: string[];
   status: "pending" | "inProgress" | "done"
 }
 
 export default function Home (){
   const [title, setTitle] = useState("")
  const [todoList, setTodoList] =useState<totoListProps[]>([])
+
    const router = useRouter()
 
 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.target.value);
+        // const info1=await getTodoList()
+  setTitle(e.target.value);
     };
 //  console.log(todoList)
 
  const fetchData= async()=>{
   const res =await fetch("/api/todolist")
-  const info1=await getTodoList()
   const info= await res.json()
   console.log(info.data)
   setTodoList(info.data)
 }
+
 useEffect(()=>{
   fetchData()
   console.log("Cargo la carta")
@@ -41,6 +45,7 @@ useEffect(()=>{
 //   if(saveData)
 //     setTodoList(JSON.parse(saveData))
 //  },[])
+
 
  const addList= async()=>{
   //Validar que no este vacio
@@ -174,6 +179,7 @@ fetchData()
              starDate={task.starDate} 
              endDate={task.endDate}
              status={task.status} 
+             comments={task.comments}
              onStart={startTask}
              onEdit={editTask}
              onFinish={doneTask} onDelete={deleteTask}/>
