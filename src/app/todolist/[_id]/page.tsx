@@ -2,8 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { Button, Card, CloseButton } from "@heroui/react";
+import { Button, Card, CloseButton, TextArea } from "@heroui/react";
 import { createComments } from "@/service/todoList";
+import { useTranslation } from "@/context/i18nContext";
+import { LanguageSelector } from "@/components/LanguagesSelector";
+
 
 interface todo {
   title: string;
@@ -23,14 +26,11 @@ interface todo {
 const DetailsTodoList = () => {
   const [todo, setTodo] = useState<todo | null>(null);
   const [comment, setComment] = useState("");
-  // const [cantidadComment, setCantidadComment] =useState<number>(0)
   const { _id } = useParams();
   const router=useRouter()
-  //const { dato } = useParams();
+  const { t } = useTranslation();
 
-// const cantidad=()=>{
-//  setCantidadComment(+1)
-// }
+
   const fetchData = async () => {
     const res = await fetch(`/api/todolist/${_id}`);
     console.log("status", res.status);
@@ -72,7 +72,8 @@ const DetailsTodoList = () => {
   return (
     <div className="flex flex-col justify-center gap-5 m-5">
       <h1 className="text-5xl">TodoList Details</h1>
-      <Button onPress={backTo}>Volver</Button>
+      <Button onPress={backTo}>{t.returnButton}</Button>
+       <LanguageSelector />
       <Card className="w-full items-stretch md:flex-row bg-[#61b7c1]">
         <div className="relative h-[140px] w-full shrink-0 overflow-hidden rounded-2xl sm:h-[120px] sm:w-[120px]">
           <img
@@ -87,30 +88,31 @@ const DetailsTodoList = () => {
             <Card.Title className="pr-8 text-4xl text-black uppercase"></Card.Title>
             <p className="text-3xl uppercase">{todo?.title}</p>
             <span className="text-blue-200">ID: {_id}</span>
-            <p className="text-black">{todo?.status}</p>
+            <p className="text-black"> {todo?.status ? t.card[todo.status] : ""}</p>
             <p>Inicio: {todo?.starDate}</p>
             <p>Fin: {todo?.endDate}</p>
             {/* <p>Duracion: {todo?.duration}</p> */}
             {/* <CloseButton aria-label="Close banner" className="absolute top-3 right-3" /> */}
           </Card.Header>
-          <Card.Description>
-           <h3 className="text-black">
-            Escriba un Comentario: 
-           </h3>
-            <input type="text" value={comment} onChange={(e) =>setComment(e.target.value)} placeholder="Escriba un comentario" className="border border-2 p-3"/>
+          <Card.Description className="flex flex-col">
+           <span className="text-black">
+            {t.card.writeComment}: 
+           </span>
+            <TextArea aria-label="Quick project update" value={comment} onChange={(e) =>setComment(e.target.value)} placeholder="Escriba un comentario" className="border border-2 p-3 rounded-2xl bg-[#bee3f3]"/>
 
-            <p>Comentarios:{todo?.comments.length} </p>
-            {todo?.comments && todo.comments.length >0
+            <span>{t.card.comment}:{todo?.comments?.length} </span>
+
+            {todo?.comments && todo?.comments?.length >0
             ? todo.comments.map((c,i) =>(
-              <p key={i}>
+              <li key={i}>
              {c}
-            </p>
-            )) : <p>Sin comentarios</p>}
+            </li>
+            )) : <span>{t.card.noComment}</span>}
             
           </Card.Description>
           <Card.Footer className="mt-auto flex w-full flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
       
-            <Button onPress={addComments} className="w-full sm:w-auto">Guardar</Button>
+            <Button onPress={addComments} className="w-full sm:w-auto">{t.card.saveButton}</Button>
           </Card.Footer>
         </div>
       </Card>

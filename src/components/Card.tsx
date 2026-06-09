@@ -1,9 +1,10 @@
+"use client"
 import { useContext, useEffect,useState } from "react"
 import { DarkMode } from "./DarkMode";
 import { ContextGlobal } from "@/context/Context";
 import { Button, Card, CloseButton } from "@heroui/react";
 import { useRouter } from "next/navigation";
-import { createComments } from "@/service/todoList";
+import { useTranslation } from "@/context/i18nContext";
 interface totoListProps{
   title:string,
   starDate?: number | undefined,
@@ -18,7 +19,7 @@ interface totoListProps{
   onEdit: (_id:string, newTitle:string)=>void
 }
 export const Card1 = ({title, starDate, endDate, status, _id, comments, duration, onStart,onFinish,onDelete, onEdit}:totoListProps)=>{
-   
+    const { t } = useTranslation();
   const [elapsed, setElapsed] = useState<string>("00:00:00")
   const [editing, setEditing] = useState(false)  
   const [newTitle, setNewTitle] = useState(title)
@@ -65,34 +66,34 @@ const totalTimeFormated = starDate && endDate
            {/*Título o input de edición */}
         {editing ? (
           <div>
-            <input value={newTitle} onChange={(e) => setNewTitle(e.target.value)} type="text" />
-            <Button onPress={() => { onEdit(_id, newTitle); setEditing(false) }}>Guardar</Button>
-            <Button onPress={() => setEditing(false)}>Cancelar</Button>
+            <input value={newTitle} onChange={(e) => setNewTitle(e.target.value)} type="text" className="border border-[#425] text-black mr-2"/>
+            <Button onPress={() => { onEdit(_id, newTitle); setEditing(false) }}>{t.card.saveButton}</Button>
+            <Button  onPress={() => setEditing(false)} >{t.card.cancelButton} </Button>
           </div>
         ) : (
           <Card.Title className="title text-black pr-8">{title}</Card.Title>
           
         )}
  
-          <Card.Description>
-             <div className="card-timer">
-          {status == "pending" && "Tarea sin iniciar"}
-          {status == "inProgress" && `Tiempo: ${elapsed}`}
-          {status == "done" && `Duración: ${totalTimeFormated}`}
-        </div>
-          <div>{status}</div>
-          <p>Comentarios: {comments.length}</p>
+          <Card.Description className="flex flex-col">
+             <span className="card-timer">
+          {status == "pending" && `${t.card.notStarted}`}
+          {status == "inProgress" && `${t.card.time} ${elapsed}`}
+          {status == "done" && `${t.card.time} ${totalTimeFormated}`}
+        </span>
+          <span>{t.card[status]}</span>
+          <span>{t.card.comment}: {comments.length}</span>
           </Card.Description>
           
         </Card.Header>
         <Card.Footer className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
 
         {/* Botones */}
-        {status == "pending" && <Button  onPress={() => onStart(_id)}>Iniciar tarea</Button>}
-        {status == "pending" && <Button style={{ backgroundColor: "#a3e" }} onPress={() => setEditing(true)}>Editar tarea</Button>}
-        {status == "inProgress" && <Button onPress={() => onFinish(_id)}>Finalizar tarea</Button>}
-        {status == "done" && <Button onPress={() => onDelete(_id)}>Eliminar tarea</Button>}
-      <Button onPress={ver} className="bg-[#542]">Ver mas</Button>
+        {status == "pending" && <Button  onPress={() => onStart(_id)}>{t.card.startButton}</Button>}
+        {status == "pending" && <Button style={{ backgroundColor: "#a3e" }} onPress={() => setEditing(true)}>{t.card.editButton}</Button>}
+        {status == "inProgress" && <Button onPress={() => onFinish(_id)}>{t.card.endButton}</Button>}
+        {status == "done" && <Button onPress={() => onDelete(_id)}>{t.card.deleteButton}</Button>}
+      <Button onPress={ver} className="bg-[#542]">{t.card.see}</Button>
       
         </Card.Footer>
       </div>

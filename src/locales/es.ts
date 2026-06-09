@@ -1,0 +1,25 @@
+export const es = {
+  title: "Lista de tareas",
+  placeholder: "Nueva tarea...",
+  addButton: "Agregar",
+  adminButton: "Ir a Admin",
+  returnButton:"Volver",
+  card: {
+    pending: "Pendiente",
+    inProgress: "En progreso",
+    done: "Completado",
+    notStarted: "Tarea sin iniciar",
+    time: "Tiempo",
+    startButton: "Iniciar tarea",
+    endButton: "Finalizar tarea",
+    deleteButton: "Eliminar",
+    editButton:"Editar",
+    see:"Ver mas",
+    saveButton:"Guardar",
+    cancelButton:"Cancelar",
+    comment:"Comentarios",
+    writeComment:"Escriba un Comentario",
+     noComment:"Sin comentarios",
+
+  },
+};
