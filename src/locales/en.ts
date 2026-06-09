@@ -4,6 +4,7 @@ export const en = {
   addButton: "Add",
   adminButton: "Go to Admin",
   returnButton:"Return",
+  TodoDetails:"Task list details",
   card: {
     pending: "Pending",
     inProgress: "In progress",

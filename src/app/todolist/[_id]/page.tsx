@@ -71,7 +71,7 @@ const DetailsTodoList = () => {
 
   return (
     <div className="flex flex-col justify-center gap-5 m-5">
-      <h1 className="text-5xl">TodoList Details</h1>
+      <h1 className="text-5xl">{t.TodoDetails}</h1>
       <Button onPress={backTo}>{t.returnButton}</Button>
        <LanguageSelector />
       <Card className="w-full items-stretch md:flex-row bg-[#61b7c1]">

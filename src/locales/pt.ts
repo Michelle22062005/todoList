@@ -4,6 +4,8 @@ export const pt = {
   addButton: "Adicionar",
   adminButton: "Ir para Admin",
   returnButton:"Retornar",
+    TodoDetails:"Detalhes da lista de tarefas",
+
   card: {
     pending: "Pendente",
     inProgress: "Em andamento",

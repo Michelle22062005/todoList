@@ -13,25 +13,26 @@
 }
 .container{
    display: grid;
-   grid-template-columns: repeat(3, 300px);
+   grid-template-columns: repeat(2, 300px);
    gap: 20px;
    width: 100%;
    justify-content: center;
 }
-.cardTask{
+/* .cardTask{
     border: 1px solid rgb(248, 189, 248);
     margin-top: 10px;
     padding-bottom: 10px;
     border-radius: 5px;
-    background: rgb(196, 197, 198);
+    background: rgb(15, 23, 42, 0.6);
     color: #000;
     text-align: center;
     
-}
+} */
 .title{
     font-size: 20px;
     font-weight: bolder;
     text-transform: uppercase;
+    color: white;
 }
 .card-pe button{
     background: rgb(165, 164, 166);
