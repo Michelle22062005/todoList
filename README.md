@@ -13,6 +13,7 @@ Aplicación de ejemplo construida con **Next.js 16**, **React 19**, **TypeScript
 
 ## Stack principal
 
+
 - Next.js 16
 - React 19
 - TypeScript
